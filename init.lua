@@ -137,9 +137,15 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     config = function()
+      local highlightSetup =
+      {
+        "CursorColumn",
+        "WhiteSpace"
+      }
       require('ibl').setup {
-        char = '┊',
-        show_trailing_blankline_indent = false,
+        indent = { char = '┊' },
+        whitespace = { highlight = highlightSetup, remove_blankline_trail = true },
+        scope = { enabled = true }
       }
     end,
   },
@@ -449,10 +455,12 @@ local servers = {
   jsonls = { filetypes = { 'json' } },
   marksman = {},
   terraformls = {},
+  vuels = { filetypes = { 'js' } },
   tailwindcss = {},
   bashls = {},
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
+  pyright = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
