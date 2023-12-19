@@ -450,6 +450,7 @@ local servers = {
   gopls = {},
   omnisharp = {},
   clangd = {},
+  tflint = {},
   cmake = {},
   dotls = {},
   jsonls = { filetypes = { 'json' } },
@@ -541,6 +542,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
 
 print("hello from the cat factory. Setup done!")
 -- The line beneath this is called `modeline`. See `:help modeline`
