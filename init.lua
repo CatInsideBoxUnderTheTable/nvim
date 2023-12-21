@@ -27,6 +27,7 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive', -- You can use :G to run any git command
   'tpope/vim-rhubarb',  -- Extension for github, alows for browsing and more advanced options
+  'sindrets/diffview.nvim',
 
   'ThePrimeagen/harpoon',
 
