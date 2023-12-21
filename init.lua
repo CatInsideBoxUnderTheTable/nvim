@@ -1,8 +1,9 @@
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+print("hello from the cat factory. Setup starting!")
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -26,7 +27,7 @@ require('lazy').setup({
 
   -- Git related plugins
   'tpope/vim-fugitive', -- You can use :G to run any git command
-  'tpope/vim-rhubarb',  -- Extension for github, alows for browsing and more advanced options
+  'tpope/vim-rhubarb',  -- Extension for github, alows for browsing and more advanced options :GBrowse - opens link
   'sindrets/diffview.nvim',
 
   'ThePrimeagen/harpoon',
@@ -112,6 +113,9 @@ require('lazy').setup({
     end,
   },
 
+  -- :Trouble -> show list of code issues
+  -- :TroubleClose
+  -- :TroubleRefresh
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -231,7 +235,7 @@ vim.o.textwidth = "110"
 vim.o.formatoptions = "jcroqlt"
 vim.o.wrap = true
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -306,16 +310,16 @@ require('telescope').setup {
 pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>of', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader>bf', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles, { desc = '[F]ind recently [O]pened files' })
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, { desc = '[F]ind existing [B]uffers' })
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>hf', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>lg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>rs', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = '[F]ind [G]it files' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind  [H]elp' })
+vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
+vim.keymap.set('n', '<leader>fp', require('telescope.builtin').live_grep, { desc = '[F]ind by grep [P]attern' })
+vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]esume' })
 
 -- Harpoon mappings
 vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, { desc = "[H]arpoon [A]dd to list" })
@@ -327,9 +331,9 @@ vim.keymap.set("n", "<C-o>", function() require("harpoon.ui").nav_file(4) end)
 vim.keymap.set("n", "<C-o>", function() require("harpoon.ui").nav_file(4) end)
 
 vim.api.nvim_set_keymap('n', '<leader>nt', ':NvimTreeToggle<CR>',
-  { noremap = true, silent = true, desc = 'Toggle file tree' })
+  { noremap = true, silent = true, desc = 'show file tree' })
 vim.api.nvim_set_keymap('n', '<leader>nf', ':NvimTreeFindFileToggle<CR>',
-  { noremap = true, silent = true, desc = 'Find current file in file tree' })
+  { noremap = true, silent = true, desc = 'find file in file tree' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -354,7 +358,7 @@ require('nvim-treesitter.configs').setup {
   textobjects = {
     select = {
       lookahead = true,
-      enable = true, -- Automatically jump forward to textobj, similar to targets.vim
+      enable = false, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',
@@ -369,16 +373,12 @@ require('nvim-treesitter.configs').setup {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
+        ['mn'] = '@function.outer',
+        ['cn'] = '@class.outer',
       },
       goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
+        ['mp'] = '@function.outer',
+        ['cp'] = '@class.outer',
       },
       goto_previous_end = {
         ['[M'] = '@function.outer',
@@ -388,19 +388,18 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ['<leader>a'] = '@parameter.inner',
+        ['sn'] = '@parameter.inner',
       },
       swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
+        ['sp'] = '@parameter.inner',
       },
     },
   },
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', 'dN', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', 'dn', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set("n", '<leader>dl', function() require("trouble").open() end, { desc = 'show compiler warnings' })
+vim.keymap.set('n', 'eN', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', 'en', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 -- vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
@@ -421,7 +420,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>nn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>nn', vim.lsp.buf.rename, '[N]ew [N]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('<leader>gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
@@ -430,8 +429,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('<leader>gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
-  nmap('H', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('sH', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('Hd', vim.lsp.buf.hover, '[H]elp show [D]ocumentation')
+  nmap('Hs', vim.lsp.buf.signature_help, '[H]elp show [S]ignature documentation')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
