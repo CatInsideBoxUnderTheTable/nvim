@@ -163,6 +163,7 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     dependencies = {
+      "debugloop/telescope-undo.nvim",
       'nvim-lua/plenary.nvim',
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.
       -- Only load if `make` is available. Make sure you have the system
@@ -320,6 +321,11 @@ vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>fp', require('telescope.builtin').live_grep, { desc = '[F]ind by grep [P]attern' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
 vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]esume' })
+
+pcall(require('telescope').load_extension, 'undo')
+vim.keymap.set('n', '<leader>ut', "<cmd>Telescope undo<cr>", { desc = '[U]ndo [T]ree' })
+
+
 
 -- Harpoon mappings
 vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, { desc = "[H]arpoon [A]dd to list" })
