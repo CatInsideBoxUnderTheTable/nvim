@@ -1,6 +1,9 @@
+-- :setlocal spell spelllang=en_us  -- to change spelling
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 print("hello from the cat factory. Setup starting!")
+
+vim.opt.spell = true
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -486,8 +489,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('<leader>gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
-  nmap('Hd', vim.lsp.buf.hover, '[H]elp show [D]ocumentation')
-  nmap('Hs', vim.lsp.buf.signature_help, '[H]elp show [S]ignature documentation')
+  nmap('hd', vim.lsp.buf.hover, '[H]elp show [D]ocumentation')
+  nmap('hs', vim.lsp.buf.signature_help, '[H]elp show [S]ignature documentation')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -513,6 +516,11 @@ local servers = {
   dotls = {},
   jsonls = { filetypes = { 'json' } },
   marksman = {},
+  rust_analyzer = {
+    diagnostics = {
+      enable = false,
+    }
+  },
   terraformls = {
     pattern = { "*.tf", "*.tfvars" },
     callback = function()
