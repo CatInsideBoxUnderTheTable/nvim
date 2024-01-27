@@ -276,6 +276,8 @@ vim.keymap.set('n', '<leader>lp', 'vimtex#environment#insert()', { expr = true, 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+vim.o.foldmethod = 'indent'
+vim.o.foldlevelstart = 99
 vim.o.swapfile = false
 
 vim.o.tabstop = 4
