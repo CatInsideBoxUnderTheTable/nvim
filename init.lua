@@ -226,6 +226,8 @@ require('lazy').setup({
   },
   require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
+
+  "itspriddle/vim-shellcheck" --adds :ShellCheck and :ShellCheck!
 }, {})
 
 -- Vimtex settings
@@ -288,7 +290,7 @@ vim.o.expandtab = true
 vim.o.smartindent = true
 
 vim.o.colorcolumn = "80,110"
-vim.o.textwidth = "110"
+vim.o.textwidth = 110
 vim.o.formatoptions = "jcroqlt"
 vim.o.wrap = true
 -- Set highlight on search
@@ -523,11 +525,9 @@ local servers = {
       enable = false,
     }
   },
-  terraformls = {},
+  terraformls = { filetypes = { 'tf', 'hcl', 'tfvars' } },
   vuels = { filetypes = { 'js' } },
-  tailwindcss = {},
   bashls = {},
-  tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   pyright = {},
   lua_ls = {
