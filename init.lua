@@ -282,6 +282,8 @@ vim.o.foldmethod = 'indent'
 vim.o.foldlevelstart = 99
 vim.o.swapfile = false
 
+vim.o.autochdir = true
+
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
@@ -392,7 +394,10 @@ vim.keymap.set("n", "<C-n>", function() require("harpoon.ui").nav_file(1) end)
 vim.keymap.set("n", "<C-e>", function() require("harpoon.ui").nav_file(2) end)
 vim.keymap.set("n", "<C-i>", function() require("harpoon.ui").nav_file(3) end)
 vim.keymap.set("n", "<C-o>", function() require("harpoon.ui").nav_file(4) end)
-vim.keymap.set("n", "<C-o>", function() require("harpoon.ui").nav_file(4) end)
+vim.keymap.set("n", "<C-h>", function() require("harpoon.ui").nav_file(1) end)
+vim.keymap.set("n", "<C-j>", function() require("harpoon.ui").nav_file(2) end)
+vim.keymap.set("n", "<C-k>", function() require("harpoon.ui").nav_file(3) end)
+vim.keymap.set("n", "<C-l>", function() require("harpoon.ui").nav_file(4) end)
 
 vim.api.nvim_set_keymap('n', '<leader>nt', ':NvimTreeToggle<CR>',
   { noremap = true, silent = true, desc = 'show file tree' })
