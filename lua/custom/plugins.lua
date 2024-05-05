@@ -1,9 +1,7 @@
 require('lazy').setup({
     'tpope/vim-fugitive',                   -- You can use :G to run any git command
-    'tpope/vim-rhubarb',                    -- Extension for github, alows for browsing and more advanced options :GBrowse - opens link
     'sindrets/diffview.nvim',               -- advanced diffs
     'tpope/vim-sleuth',                     -- Detect tabstop and shiftwidth automatically
-    "itspriddle/vim-shellcheck",            -- Adds :ShellCheck and :ShellCheck!
     'ThePrimeagen/harpoon',                 -- Bookmark navigation utility
 
     { 'folke/which-key.nvim',  opts = {} }, -- Useful plugin to show you pending keybinds.
@@ -59,25 +57,24 @@ require('lazy').setup({
                 changedelete = { text = '~' },
             },
             on_attach = function(bufnr)
-                vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
-                    { buffer = bufnr, desc = 'Preview git hunk' })
+                vim.keymap.set('n', '<leader>gs', require('gitsigns').preview_hunk,
+                    { buffer = bufnr, desc = 'Preview git change' })
 
                 -- don't override the built-in and fugitive keymaps
                 local gs = package.loaded.gitsigns
-                vim.keymap.set({ 'n', 'v' }, ']c', function()
-                    if vim.wo.diff then return ']c' end
+                vim.keymap.set({ 'n', 'v' }, '<leader>gn', function()
+                    if vim.wo.diff then return '<leader>gn' end
                     vim.schedule(function() gs.next_hunk() end)
                     return '<Ignore>'
-                end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
-                vim.keymap.set({ 'n', 'v' }, '[c', function()
-                    if vim.wo.diff then return '[c' end
+                end, { expr = true, buffer = bufnr, desc = "Jump to next git change" })
+                vim.keymap.set({ 'n', 'v' }, '<leader>gN', function()
+                    if vim.wo.diff then return '<leader>gN' end
                     vim.schedule(function() gs.prev_hunk() end)
                     return '<Ignore>'
-                end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+                end, { expr = true, buffer = bufnr, desc = "Jump to previous git change" })
             end,
         },
     },
-
 
     {
         'catppuccin/nvim',
@@ -100,7 +97,7 @@ require('lazy').setup({
     {
         -- Set lualine as statusline
         'nvim-lualine/lualine.nvim',
-        -- See `:help lualine.txt`
+        priority = 1001,
         opts = {
             options = {
                 icons_enabled = false,
@@ -233,6 +230,13 @@ require('lazy').setup({
                 options = { '-pdf', '-verbose', '-file-line-error', '-synctex=1', '-interaction=nonstopmode' },
             }
         end
+    },
+
+    -- Adds :ShellCheck and :ShellCheck!
+    {
+        "itspriddle/vim-shellcheck",
+        lazy = true,
+        ft = "sh",
     },
 
     require 'kickstart.plugins.autoformat'

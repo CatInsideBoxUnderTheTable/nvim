@@ -8,7 +8,7 @@ vim.o.foldmethod = 'indent'
 vim.o.foldlevelstart = 99
 vim.o.swapfile = false
 
-vim.o.autochdir = true
+-- vim.o.autochdir = true - destroys fuzzyfinder
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -23,7 +23,7 @@ vim.o.formatoptions = "jcroqlt"
 vim.o.wrap = true
 vim.o.hlsearch = true -- Set highlight on search
 
-vim.wo.number = true -- Make line numbers default
+vim.wo.number = true  -- Make line numbers default
 vim.wo.relativenumber = true
 
 
@@ -44,4 +44,4 @@ vim.o.timeoutlen = 300
 
 vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
 
-vim.o.termguicolors = true -- NOTE: You should make sure your terminal supports this
+vim.o.termguicolors = true             -- NOTE: You should make sure your terminal supports this
