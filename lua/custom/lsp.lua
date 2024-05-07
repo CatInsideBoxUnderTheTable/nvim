@@ -15,11 +15,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>gt', vim.lsp.buf.type_definition, '[G]oto [T]ype definition')
   nmap('<leader>gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-  nmap('hd', vim.lsp.buf.hover, '[H]elp show [D]ocumentation')
-  nmap('hs', vim.lsp.buf.signature_help, '[H]elp show [S]ignature documentation')
-
-vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end,
-  { desc = 'Format current buffer with LSP' })
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end,
+    { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -64,4 +61,3 @@ mason_lspconfig.setup_handlers {
     }
   end
 }
-

@@ -21,3 +21,11 @@ function LANG(args)
 end
 
 vim.api.nvim_create_user_command('Lang', function(args) LANG(args) end, { nargs = "?" })
+
+function SEARCH_WORD()
+  local word = vim.fn.expand('<cword>')      -- Get the word under the cursor
+  vim.cmd('set hlsearch')                    -- Ensure that highlight search is enabled
+  vim.fn.setreg('/', '\\<' .. word .. '\\>') -- Set the search pattern, adding word boundaries
+end
+
+vim.keymap.set("n", "<leader>fc", SEARCH_WORD, { desc = "[F]ind [C]urrent word under cursor in this file" })
