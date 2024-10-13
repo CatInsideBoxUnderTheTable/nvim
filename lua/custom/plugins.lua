@@ -232,7 +232,7 @@ require('lazy').setup({
         end
     },
 
-    -- Adds :ShellCheck and :ShellCheck!
+    -- Adds :ShellCheck and :ShellCheck! - for bash scripting
     {
         "itspriddle/vim-shellcheck",
         lazy = true,
